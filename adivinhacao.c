@@ -9,12 +9,17 @@ void bemvindo(){
     printf("***********************\n\n");
 }
 
+void limpabuffer(){
+    while(getchar() != '\n');
+}
+
 int dificuldade(){
     int nivel;
     printf("Qual o nível de dificuldade?\n");
     printf("(1) Fácil (2) Médio (3) Difícil\n");
     printf("Escolha: ");
     scanf("%d", &nivel);
+    limpabuffer();
     if (nivel > 3 || nivel < 1){
         printf("Por favor, escolha um número válido.\n");
         return dificuldade();
@@ -28,11 +33,31 @@ int gerarnumero(){
     return numerosecreto;
 }
 
+int jogarnovamente(){
+    int respostajogo;
+    printf("Deseja joga novamente?\n");
+    printf("(1) SIM \n(2) NÃO\n");
+    scanf("%d", &respostajogo);
+    limpabuffer();
+    if (respostajogo > 2 || respostajogo < 1){
+        printf("Por favor, escolha um número válido.\n");
+        return jogarnovamente();
+    }
+    if (respostajogo == 1){
+        printf("Ótimo, vamos jogar novamente!\n");
+    } else {
+        printf("Poxa, que pena!\n");
+    }
+    return respostajogo;
+}
+
 int main() {
-    // funcao
     srand(time(0));
     bemvindo();
+    int jogardenovo;
+    do {
     int numerosecreto = gerarnumero();
+    printf("[DEBUG] Número secreto: %d\n", numerosecreto);
     int chute;
     int tentativas = 0;                    
     double pontos = 1000.0;
@@ -99,12 +124,13 @@ int main() {
     }
         
         printf("Você acertou em %d tentativas!\n", tentativas);
-        printf("Total de pontos: %.1f\n", pontos);
+        printf("Total de pontos: %.1f\n\n", pontos);
     }
     else {
         printf("Você perdeu! O número secreto era %d.\n", numerosecreto);
         printf("Tente de novo!\n");
     }
-
+    jogardenovo = jogarnovamente();
+    } while(jogardenovo == 1);
     return 0;
 }
