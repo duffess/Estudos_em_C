@@ -1,15 +1,10 @@
 #include <stdio.h>
 
-void calcula(int c){
-	printf("calcula %d\n", c);
-	c++;
-	printf("calcula %d\n", c);
-}
-
 int main() {
-	int c = 10;
+	int leituras[5] = {15, 22, 30, 41, 55};
+	int *ptr = leituras;
 
-	printf("main %d\n", c);
-	calcula(c);
-	printf("main %d\n", c);
+	ptr++;
+
+	printf("%d e %d", *ptr, *(ptr+3));
 }
